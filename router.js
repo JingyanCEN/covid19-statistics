@@ -26,10 +26,10 @@ var connection = mysql.createConnection({
   database : 'covid19_google_user'
 });
 
+connection.connect();
 router.post("/tokensignin",async(ctx,next)=>{
   console.log(ctx.request.body);
   const res = ctx.request.body
-  connection.connect();
   const now = dayjs().format("YYYY-MM-DD HH:mm:ss")
 
   await new Promise((resolve,reject)=>{
@@ -39,7 +39,7 @@ router.post("/tokensignin",async(ctx,next)=>{
     });
   })
   
-  connection.end();
+  //connection.end();
   //存数据库
   ctx.body = "ok"
 })
