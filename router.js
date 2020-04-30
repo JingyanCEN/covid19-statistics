@@ -3,17 +3,25 @@ var router = new Router();
 const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore();
 const dayjs = require('dayjs')
+const {Logging} = require('@google-cloud/logging');
+const projectId = "heroic-equinox-275516"
+const logName ="covid10-website"
+const logging = new Logging({projectId});
+const log = logging.log(logName);
 
 router.get("/world",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
   ctx.body = res[0].data
 })
 router.get("/america",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "America"]))
   ctx.body = res[0].data
 
 })
 router.get("/china",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "China"]))
   ctx.body = res[0].data
 })
@@ -28,7 +36,7 @@ var connection = mysql.createConnection({
 
 connection.connect();
 router.post("/tokensignin",async(ctx,next)=>{
-  console.log(ctx.request.body);
+  //console.log(ctx.request.body);
   const res = ctx.request.body
   const now = dayjs().format("YYYY-MM-DD HH:mm:ss")
 

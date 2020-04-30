@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google-cloud/datastore": "^5.1.0",
+    "@google-cloud/logging": "^7.3.0",
     "@google-cloud/storage": "^4.7.0",
     "axios": "^0.19.2",
     "buefy": "^0.8.17",
