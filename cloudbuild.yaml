@@ -1,17 +1,16 @@
 steps:
+  - name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  
+  - name: 'gcr.io/cloud-builders/npm'
+  args: ['run','build']
+  
+  - name: 'gcr.io/cloud-builders/npm'
+  args: ['run','upload']
+  
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build','-t', 'gcr.io/heroic-equinox-275516/github.com/jingyancen/covid19-statistics:latest', '-f','dockerfile','.']
     
   - name: "gcr.io/cloud-builders/docker"
     args: ["push","gcr.io/heroic-equinox-275516/github.com/jingyancen/covid19-statistics:latest"]
-
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
-
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run','build']
-
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run','upload']
-
     
