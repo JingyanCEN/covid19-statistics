@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['-t', 'gcr.io/heroic-equinox-275516/github.com/jingyancen/covid19-statistics:latest', '-f','dockerfile','.']
+
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['build']
+
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['upload']
+
+    
