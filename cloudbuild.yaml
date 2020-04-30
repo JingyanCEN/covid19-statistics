@@ -6,9 +6,9 @@ steps:
     args: ['install']
 
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['build']
+    args: ['run','build']
 
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['upload']
+    args: ['run','upload']
 
     
