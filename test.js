@@ -15,5 +15,5 @@ async function test() {
       Date: new Date().getTime()
     }
   })
-}
+} 
 test()  
