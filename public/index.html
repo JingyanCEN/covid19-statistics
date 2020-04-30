@@ -22,10 +22,13 @@
       const signButton = document.querySelector("#signin-button")
       const welcome = document.createElement('span')
       welcome.innerHTML = "welcome"
+      welcome.classList.add("welcome") 
       const image = document.createElement('img')
       image.src = googleUser.Qt.gL
+      image.classList.add("avatar")
       const username = document.createElement('span')
       username.innerHTML = googleUser.Qt.Ad
+      username.classList.add("username")
       signButton.innerHTML=""
       signButton.append(welcome)
       signButton.append(image)
@@ -43,3 +46,18 @@
     }
   </script>
 </html>
+
+<style>
+  .welcome{
+    margin-right: 40px;
+    color: white;
+  }
+  .avatar{
+    width: 50px;
+    border-radius: 25px;
+    vertical-align: middle
+  }
+  .username {
+    margin-left: 40px;
+  }
+</style>
