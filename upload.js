@@ -1,6 +1,7 @@
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
 const fsPromise= require('fs').promises
+const fs = require('fs')
 const path = require('path')
 
 async function uploadFile(file) {
@@ -23,7 +24,7 @@ async function uploadFile(file) {
 }
 
 async function findAllFilePath(nowPath) {
-  const filePaths = await fsPromise.readdir(nowPath)
+  const filePaths = fs.readdirSync(nowPath)
   let ret = []
   if(filePaths.length > 0){
     await Promise.all(filePaths.map(async filePath=>{
