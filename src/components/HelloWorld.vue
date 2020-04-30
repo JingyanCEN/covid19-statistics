@@ -27,7 +27,7 @@ export default {
     msg: String
   },
   async mounted() {
-    const res = await axios.get("https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true")
+    const res = await axios.get("/world")
     new Chart(this.$refs.barChart, {
         type: 'bar',
         data: {
@@ -39,7 +39,7 @@ export default {
             }]
         },
     });    
-    const res2 = await axios.get("https://api.apify.com/v2/datasets/FIbyK6uHUntt2kNy3/items?format=json&clean=1")
+    const res2 = await axios.get("america")
     new Chart(this.$refs.lineChart, {
       type: 'line',
       data: {
@@ -51,7 +51,7 @@ export default {
         }]
       }
     });
-    const res3 = await axios.get("https://api.apify.com/v2/key-value-stores/x4iHxk7TVGI7UxFv6/records/LATEST?disableRedirect=true")
+    const res3 = await axios.get("china")
     new Chart(this.$refs.barChart2, {
       type: 'horizontalBar',
       data: {

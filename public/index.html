@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="google-signin-client_id" content="550594607568-obplj6pk49sp1rb1euo64jjap0blr2kb.apps.googleusercontent.com">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -14,4 +15,31 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    var onSignIn = function(googleUser) {
+      console.log('sign in')
+      const signButton = document.querySelector("#signin-button")
+      const welcome = document.createElement('span')
+      welcome.innerHTML = "welcome"
+      const image = document.createElement('img')
+      image.src = googleUser.Qt.gL
+      const username = document.createElement('span')
+      username.innerHTML = googleUser.Qt.Ad
+      signButton.innerHTML=""
+      signButton.append(welcome)
+      signButton.append(image)
+      signButton.append(username)
+      signButton.classList.add("singed") 
+
+      var id_token = googleUser.getAuthResponse().id_token;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/tokensignin');
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.onload = function() {
+        console.log('Signed in as: ' + xhr.responseText);
+      };
+      xhr.send(JSON.stringify(googleUser));
+    }
+  </script>
 </html>

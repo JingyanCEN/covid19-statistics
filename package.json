@@ -8,11 +8,20 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@google-cloud/datastore": "^5.1.0",
+    "@google-cloud/storage": "^4.7.0",
     "axios": "^0.19.2",
     "buefy": "^0.8.17",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
+    "cron": "^1.8.2",
     "dayjs": "^1.8.25",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^8.0.8",
+    "koa-static": "^5.0.0",
+    "mysql": "^2.18.1",
+    "node-cron": "^2.0.3",
     "vue": "^2.6.11"
   },
   "devDependencies": {
