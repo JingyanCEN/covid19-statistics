@@ -43,10 +43,10 @@ export default {
     new Chart(this.$refs.lineChart, {
       type: 'line',
       data: {
-        labels: res2.data[res2.data.length-1].casesByDays.map(v=>dayjs(v.date).format("MM-DD")).slice(20) ,
+        labels: res2.data[res2.data.length-1].casesByDays.filter(v=>dayjs(v.time) < dayjs()).map(v=>dayjs(v.date).format("MM-DD")) ,
         datasets: [{
             label: 'case in United States',
-            data: res2.data[res2.data.length-1].casesByDays.map(v=>v.value).slice(20),
+            data: res2.data[res2.data.length-1].casesByDays.filter(v=>dayjs(v.time) < dayjs()).map(v=>v.value),
             backgroundColor: "#FF7B69"
         }]
       }

@@ -59,11 +59,16 @@ var initClient = function() {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-    background-color: #10aeb5;
+  background-color: #10aeb5;
   padding: 1px;
 }
 .title {
   color: white;
+}
+.g-signin2{
+  margin-top: 45px;
+}
+.abcRioButton{
+  margin: auto;
 }
 </style>
