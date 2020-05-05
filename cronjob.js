@@ -11,7 +11,7 @@ async function apiCache(){
   const Australia_tested = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=tested")
   const Australia_recovered = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=recovered")
 
-  America.data = America.data.slice(America.length - 10)
+  America.data = America.data.slice(America.data.length - 10)
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "World"]),
     data: {
