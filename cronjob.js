@@ -17,6 +17,8 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("World");
+  
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "America"]),
     data: {
@@ -24,6 +26,9 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("America");
+
+
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "China"]),
     data: {
@@ -31,6 +36,9 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("China");
+
+
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "AustraliaConfirmed"]),
     data: {
@@ -38,6 +46,9 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("AustraliaConfirmed");
+
+
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "AustraliaDeaths"]),
     data: {
@@ -45,6 +56,8 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("AustraliaDeaths");
+
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "AustraliaTested"]),
     data: {
@@ -52,6 +65,9 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("AustraliaTested");
+
+  
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "AustraliaRecovered"]),
     data: {
@@ -59,6 +75,9 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
+  console.log("AustraliaRecovered");
+
+
 }
 var job = new CronJob(
   // every 10 min 
