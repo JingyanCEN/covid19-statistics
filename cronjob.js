@@ -32,28 +32,28 @@ async function apiCache(){
     }
   })
   await datastore.save({
-    key: datastore.key(["covid19ApiCache", "Australia_confirmed"]),
+    key: datastore.key(["covid19ApiCache", "AustraliaConfirmed"]),
     data: {
       data: Australia_confirmed.data,
       Date: new Date().getTime()
     }
   })
   await datastore.save({
-    key: datastore.key(["covid19ApiCache", "Australia_deaths"]),
+    key: datastore.key(["covid19ApiCache", "AustraliaDeaths"]),
     data: {
       data: Australia_deaths.data,
       Date: new Date().getTime()
     }
   })
   await datastore.save({
-    key: datastore.key(["covid19ApiCache", "Australia_tested"]),
+    key: datastore.key(["covid19ApiCache", "AustraliaTested"]),
     data: {
       data: Australia_tested.data,
       Date: new Date().getTime()
     }
   })
   await datastore.save({
-    key: datastore.key(["covid19ApiCache", "Australia_recovered"]),
+    key: datastore.key(["covid19ApiCache", "AustraliaRecovered"]),
     data: {
       data: Australia_recovered.data,
       Date: new Date().getTime()
