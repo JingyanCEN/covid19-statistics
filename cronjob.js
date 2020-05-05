@@ -8,7 +8,7 @@ async function apiCache(){
   const China = await  axios.get("https://api.apify.com/v2/key-value-stores/x4iHxk7TVGI7UxFv6/records/LATEST?disableRedirect=true")
   const Australia_confirmed = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=confirmed")
   const Australia_deaths = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=deaths")
-  const Australia_tested = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=testedd")
+  const Australia_tested = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=tested")
   const Australia_recovered = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=recovered")
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "World"]),
