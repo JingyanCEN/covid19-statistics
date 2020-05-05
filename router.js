@@ -25,6 +25,26 @@ router.get("/china",async(ctx,next)=>{
   const res = await datastore.get(datastore.key(["covid19ApiCache", "China"]))
   ctx.body = res[0].data
 })
+router.get("/australia_confirmed",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_confirmed"]))
+  ctx.body = res[0].data
+})
+router.get("/australia_deaths",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_deaths"]))
+  ctx.body = res[0].data
+})
+router.get("/australia_tested",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_tested"]))
+  ctx.body = res[0].data
+})
+router.get("/australia_recovered",async(ctx,next)=>{
+  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_recovered"]))
+  ctx.body = res[0].data
+})
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
