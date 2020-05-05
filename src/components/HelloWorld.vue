@@ -75,22 +75,22 @@ export default {
     new Chart(this.$refs.australia, {
       type: 'line',
       data: {
-        labels: res4_confirmed.data[0].map(v=>v.x),
+        labels: res4_confirmed.data[0].data.map(v=>v.x),
         datasets: [{
             label: "confirmed",
-            data: res4_confirmed.data[0].map(v=>v.y),
+            data: res4_confirmed.data[0].data.map(v=>v.y),
             backgroundColor: "#FF6A57"
         },{
             label: "deaths",
-            data: res4_deaths.data[0].map(v=>v.y),
+            data: res4_deaths.data[0].data.map(v=>v.y),
             backgroundColor: "#FF6384"
         },{
             label: "tested",
-            data: res4_tested.data[0].map(v=>v.y),
+            data: res4_tested.data[0].data.map(v=>v.y),
             backgroundColor: "#36A2EB"
         },{
             label: "recovered",
-            data: res4_recovered.data[0].map(v=>v.y),
+            data: res4_recovered.data[0].data.map(v=>v.y),
             backgroundColor: "#10AEB5"
         }
         ]
