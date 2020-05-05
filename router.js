@@ -27,22 +27,22 @@ router.get("/china",async(ctx,next)=>{
 })
 router.get("/australia_confirmed",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_confirmed"]))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaConfirmed"]))
   ctx.body = res[0].data
 })
 router.get("/australia_deaths",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_deaths"]))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaDeaths"]))
   ctx.body = res[0].data
 })
 router.get("/australia_tested",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_tested"]))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaTested"]))
   ctx.body = res[0].data
 })
 router.get("/australia_recovered",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "Australia_recovered"]))
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaRecovered"]))
   ctx.body = res[0].data
 })
 
