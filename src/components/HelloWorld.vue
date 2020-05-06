@@ -15,7 +15,9 @@
     <div>
       <b-tag type="is-info" size="is-large">Australia</b-tag>
     </div>
-    <canvas ref="australia" width="800" height="400"></canvas>
+    <canvas ref="australia1" width="800" height="400"></canvas>
+    <canvas ref="australia2" width="800" height="400"></canvas>
+    <canvas ref="australia3" width="800" height="400"></canvas>
     <!-- <b-table :data="data" :columns="columns"></b-table> -->
   </div>
 </template>
@@ -72,7 +74,18 @@ export default {
     const res4_deaths = await axios.get("australia_deaths")
     const res4_tested = await axios.get("australia_tested")
     const res4_recovered = await axios.get("australia_recovered")
-    new Chart(this.$refs.australia, {
+    new Chart(this.$refs.australia1, {
+      type: 'line',
+      data: {
+        labels: res4_tested.data[0].data.map(v=>v.x),
+        datasets: [{
+            label: "tested",
+            data: res4_tested.data[0].data.map(v=>v.y),
+            backgroundColor: "#36A2EB"
+        }]
+      }
+    });
+    new Chart(this.$refs.australia2, {
       type: 'line',
       data: {
         labels: res4_confirmed.data[0].data.map(v=>v.x),
@@ -80,14 +93,17 @@ export default {
             label: "confirmed",
             data: res4_confirmed.data[0].data.map(v=>v.y),
             backgroundColor: "#FF6A57"
-        },{
+        }]
+      }
+    });
+    new Chart(this.$refs.australia3, {
+      type: 'line',
+      data: {
+        labels: res4_confirmed.data[0].data.map(v=>v.x),
+        datasets: [{
             label: "deaths",
             data: res4_deaths.data[0].data.map(v=>v.y),
             backgroundColor: "#FF6384"
-        },{
-            label: "tested",
-            data: res4_tested.data[0].data.map(v=>v.y),
-            backgroundColor: "#36A2EB"
         },{
             label: "recovered",
             data: res4_recovered.data[0].data.map(v=>v.y),
