@@ -37,11 +37,11 @@ export default {
     new Chart(this.$refs.barChart, {
         type: 'bar',
         data: {
-            labels: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map(v=>v.Country),
+            labels: res.data.Countries.sort((a,b)=>b.TotalConfirmed-a.TotalConfirmed).slice(0,20).map(v=>v.Country),
             datasets: [{
                 label: 'infected people count',
-                data: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map(v=>v.TotalConfirmed),
-                backgroundColor: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map((v,i)=>v.TotalConfirmed>300000?'#D92121': v.TotalConfirmed>100000? "#F0925B":"#F7B76E"),
+                data: res.data.Countries.sort((a,b)=>b.TotalConfirmed-a.TotalConfirmed).slice(0,20).map(v=>v.TotalConfirmed),
+                backgroundColor: res.data.Countries.sort((a,b)=>b.TotalConfirmed-a.TotalConfirmed).slice(0,20).map((v,i)=>v.TotalConfirmed>300000?'#D92121': v.TotalConfirmed>100000? "#F0925B":"#F7B76E"),
             }]
         },
     });    
