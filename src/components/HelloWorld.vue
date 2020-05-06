@@ -62,10 +62,15 @@ export default {
     new Chart(this.$refs.barChart2, {
       type: 'horizontalBar',
       data: {
-        labels: ["infected","recovered","tested","deceased","currentConfirmedCount","suspectedCount","seriousCount"] ,
+        labels: ["currentConfirmedCount","confirmedCount","suspectedCount","curedCount","deadCount","seriousCount"] ,
         datasets: [{
             label: "count",
-            data: [res3.data.infected,res3.data.recovered,res3.data.tested,res3.data.deceased,res3.data.currentConfirmedCount,res3.data.suspectedCount,res3.data.seriousCount,],
+            data: [res3.data.results[0].currentConfirmedCount,
+            res3.data.results[0].confirmedCount,
+            res3.data.results[0].suspectedCount,
+            res3.data.results[0].curedCount,
+            res3.data.results[0].deadCount,
+            res3.data.results[0].seriousCount,],
             backgroundColor: "#10AEB5"
         }]
       }
