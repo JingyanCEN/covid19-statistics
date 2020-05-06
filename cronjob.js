@@ -3,7 +3,8 @@ const {Datastore} = require('@google-cloud/datastore');
 const datastore = new Datastore();
 const axios = require("axios")
 async function apiCache(){
-  const World = await axios.get("https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true")
+  const World = await axios.get("https://api.covid19api.com/summary")
+  // const World = await axios.get("https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true")
   let America = await axios.get("https://api.apify.com/v2/datasets/FIbyK6uHUntt2kNy3/items?format=json&clean=1")
   const China = await  axios.get("https://lab.isaaclin.cn/nCoV/api/overall")
   // const China = await  axios.get("https://api.apify.com/v2/key-value-stores/x4iHxk7TVGI7UxFv6/records/LATEST?disableRedirect=true")

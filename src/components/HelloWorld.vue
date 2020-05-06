@@ -37,11 +37,11 @@ export default {
     new Chart(this.$refs.barChart, {
         type: 'bar',
         data: {
-            labels: res.data.map(v=>v.country),
+            labels: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map(v=>v.Country),
             datasets: [{
                 label: 'infected people count',
-                data: res.data.map(v=>v.infected),
-                backgroundColor: res.data.map((v,i)=>v.infected>300000?'#D92121': v.infected>100000? "#F0925B":"#F7B76E"),
+                data: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map(v=>v.TotalConfirmed),
+                backgroundColor: res.data.Countries.sort((a,b)=>a.TotalConfirmed-b.TotalConfirmed).slice(0,20).map((v,i)=>v.TotalConfirmed>300000?'#D92121': v.TotalConfirmed>100000? "#F0925B":"#F7B76E"),
             }]
         },
     });    
@@ -108,11 +108,11 @@ export default {
         datasets: [{
             label: "deaths",
             data: res4_deaths.data[0].data.map(v=>v.y),
-            backgroundColor: "#FF6384"
+            borderColor: "#FF6384"
         },{
             label: "recovered",
             data: res4_recovered.data[0].data.map(v=>v.y),
-            backgroundColor: "#10AEB5"
+            borderColor: "#10AEB5"
         }
         ]
       }
