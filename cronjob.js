@@ -13,10 +13,26 @@ async function apiCache(){
   const Australia_tested = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=tested")
   const Australia_recovered = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=recovered")
 
+  const redis = require("redis");
+  const client = redis.createClient({
+    host: '10.99.183.11',
+    port: 6379
+  });
+  const { promisify } = require("util");
+  const setAsync = promisify(client.set).bind(client);
+  
+  client.on("error", function(error) {
+    console.error(error);
+  });
+
   America.data = America.data.filter(v=>v.casesByDays)
   if(America.data.length > 10){
     America.data = America.data.slice(America.data.length - 10)
   }
+  await setAsync("World", {
+      data: World.data,
+      Date: new Date().getTime()
+    })
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "World"]),
     data: {
@@ -24,7 +40,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("World");
   
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "America"]),
@@ -33,7 +48,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("America");
 
 
   await datastore.save({
@@ -43,7 +57,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("China");
 
 
   await datastore.save({
@@ -53,7 +66,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("AustraliaConfirmed");
 
 
   await datastore.save({
@@ -63,7 +75,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("AustraliaDeaths");
 
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "AustraliaTested"]),
@@ -72,7 +83,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("AustraliaTested");
 
   
   await datastore.save({
@@ -82,7 +92,6 @@ async function apiCache(){
       Date: new Date().getTime()
     }
   })
-  console.log("AustraliaRecovered");
 
 
 }

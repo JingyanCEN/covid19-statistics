@@ -9,13 +9,30 @@ const logName ="covid10-website"
 const logging = new Logging({projectId});
 const log = logging.log(logName);
 
+const redis = require("redis");
+const client = redis.createClient({
+  host: '10.99.183.11',
+  port: 6379
+});
+const { promisify } = require("util");
+const getAsync = promisify(client.get).bind(client);
+
+client.on("error", function(error) {
+  console.error(error);
+});
+
+
 router.get("/world",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const redisRes = await getAsync("World")
+  console.log(redisRes);
   const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
   ctx.body = res[0].data
 })
 router.get("/america",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
+  const redisRes = await getAsync("America")
+  console.log(redisRes);
   const res = await datastore.get(datastore.key(["covid19ApiCache", "America"]))
   ctx.body = res[0].data
 
