@@ -92,5 +92,5 @@ async function apiCache(){
 //   apiCache
 // );
 
-// apiCache()
+apiCache()
 module.exports = apiCache
