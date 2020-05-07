@@ -95,11 +95,11 @@ async function apiCache(){
 
 
 }
-// var job = new CronJob(
-//   // every 10 min 
-//   '0 0/10 * * * *',
-//   apiCache
-// );
+var job = new CronJob(
+  // every 10 min 
+  '0 0/10 * * * *',
+  apiCache
+);
 
 apiCache()
-module.exports = apiCache
+module.exports = job

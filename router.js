@@ -23,7 +23,6 @@ client.on("error", function(error) {
 
 
 router.get("/world",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const redisRes = await getAsync("World")
   console.log(JSON.parse(redisRes));
   if(!redisRes ){
@@ -36,7 +35,6 @@ router.get("/world",async(ctx,next)=>{
 
 })
 router.get("/america",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const redisRes = await getAsync("America")
   console.log(redisRes);
   const res = await datastore.get(datastore.key(["covid19ApiCache", "America"]))
@@ -44,27 +42,22 @@ router.get("/america",async(ctx,next)=>{
 
 })
 router.get("/china",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "China"]))
   ctx.body = res[0].data
 })
 router.get("/australia_confirmed",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaConfirmed"]))
   ctx.body = res[0].data
 })
 router.get("/australia_deaths",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaDeaths"]))
   ctx.body = res[0].data
 })
 router.get("/australia_tested",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaTested"]))
   ctx.body = res[0].data
 })
 router.get("/australia_recovered",async(ctx,next)=>{
-  await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaRecovered"]))
   ctx.body = res[0].data
 })
@@ -79,7 +72,6 @@ var connection = mysql.createConnection({
 
 connection.connect();
 router.post("/tokensignin",async(ctx,next)=>{
-  //console.log(ctx.request.body);
   const res = ctx.request.body
   const now = dayjs().format("YYYY-MM-DD HH:mm:ss")
 
@@ -91,20 +83,19 @@ router.post("/tokensignin",async(ctx,next)=>{
   })
   
   //connection.end();
-  //瀛樻暟鎹簱
   ctx.body = "ok"
 })
 
-const apiCache = require("./cronjob.js")
-router.post("/apicache",async(ctx,next)=>{
-  console.log(ctx.request.body);
+// const apiCache = require("./cronjob.js")
+// router.post("/apicache",async(ctx,next)=>{
+//   console.log(ctx.request.body);
   
-  if(ctx.request.body === "apicache") {
-    await apiCache()
-    ctx.body = 'ok'
-  }else{
-    ctx.body = "not ok"
-  }
-})
+//   if(ctx.request.body === "apicache") {
+//     await apiCache()
+//     ctx.body = 'ok'
+//   }else{
+//     ctx.body = "not ok"
+//   }
+// })
 
 module.exports = router
