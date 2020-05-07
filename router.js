@@ -25,9 +25,15 @@ client.on("error", function(error) {
 router.get("/world",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
   const redisRes = await getAsync("World")
-  console.log(redisRes);
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
-  ctx.body = res[0].data
+  console.log(JSON.parse(redisRes));
+  if(!redisRes ){
+    const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
+    ctx.body = res[0].data
+  }else{
+    ctx.body = JSON.parse(redisRes).data
+  }
+
+
 })
 router.get("/america",async(ctx,next)=>{
   await log.write(log.entry({resource: {type: 'global'}},ctx.path))
@@ -85,7 +91,7 @@ router.post("/tokensignin",async(ctx,next)=>{
   })
   
   //connection.end();
-  //存数据库
+  //瀛樻暟鎹簱
   ctx.body = "ok"
 })
 

@@ -29,10 +29,10 @@ async function apiCache(){
   if(America.data.length > 10){
     America.data = America.data.slice(America.data.length - 10)
   }
-  await setAsync("World", {
+  await setAsync("World", JSON.stringify({
       data: World.data,
       Date: new Date().getTime()
-    })
+    }))
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "World"]),
     data: {
