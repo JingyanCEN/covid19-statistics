@@ -13,7 +13,10 @@ async function apiCache(){
   const Australia_tested = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=tested")
   const Australia_recovered = await axios.get("https://api.infotorch.org/api/covid19/statlist/?format=json&geos=AU&stat=recovered")
 
-  America.data = America.data.filter(v=>v.casesByDays).slice(America.data.length - 10)
+  America.data = America.data.filter(v=>v.casesByDays)
+  if(America.data.length > 10){
+    America.data = America.data.slice(America.data.length - 10)
+  }
   await datastore.save({
     key: datastore.key(["covid19ApiCache", "World"]),
     data: {
@@ -83,11 +86,11 @@ async function apiCache(){
 
 
 }
-var job = new CronJob(
-  // every 10 min 
-  '0 0/10 * * * *',
-  apiCache
-);
+// var job = new CronJob(
+//   // every 10 min 
+//   '0 0/10 * * * *',
+//   apiCache
+// );
 
-apiCache()
-module.exports = job
+// apiCache()
+module.exports = apiCache
