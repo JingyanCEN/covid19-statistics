@@ -72,4 +72,16 @@ router.post("/tokensignin",async(ctx,next)=>{
   ctx.body = "ok"
 })
 
+const apiCache = require("./cronjob.js")
+router.post("/apicache",async(ctx,next)=>{
+  console.log(ctx.request.body);
+  
+  if(ctx.request.body === "apicache") {
+    await apiCache()
+    ctx.body = 'ok'
+  }else{
+    ctx.body = "not ok"
+  }
+})
+
 module.exports = router
