@@ -1,3 +1,6 @@
+/**
+ * 引入第三方包，每个包的具体作用太多不详细介绍，请自行在https://www.npmjs.com 上面搜
+ */
 var Router = require('koa-router');
 var router = new Router();
 const {Datastore} = require('@google-cloud/datastore');
@@ -9,6 +12,9 @@ const logName ="covid10-website"
 const logging = new Logging({projectId});
 const log = logging.log(logName);
 
+/**
+ * 初始化redis
+ */
 const redis = require("redis");
 const client = redis.createClient({
   host: '10.99.183.11',
@@ -16,52 +22,13 @@ const client = redis.createClient({
 });
 const { promisify } = require("util");
 const getAsync = promisify(client.get).bind(client);
-
 client.on("error", function(error) {
   console.error(error);
 });
 
-
-router.get("/world",async(ctx,next)=>{
-  const redisRes = await getAsync("World")
-  console.log(JSON.parse(redisRes));
-  if(!redisRes ){
-    const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
-    ctx.body = res[0].data
-  }else{
-    ctx.body = JSON.parse(redisRes).data
-  }
-
-
-})
-router.get("/america",async(ctx,next)=>{
-  const redisRes = await getAsync("America")
-  console.log(redisRes);
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "America"]))
-  ctx.body = res[0].data
-
-})
-router.get("/china",async(ctx,next)=>{
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "China"]))
-  ctx.body = res[0].data
-})
-router.get("/australia_confirmed",async(ctx,next)=>{
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaConfirmed"]))
-  ctx.body = res[0].data
-})
-router.get("/australia_deaths",async(ctx,next)=>{
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaDeaths"]))
-  ctx.body = res[0].data
-})
-router.get("/australia_tested",async(ctx,next)=>{
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaTested"]))
-  ctx.body = res[0].data
-})
-router.get("/australia_recovered",async(ctx,next)=>{
-  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaRecovered"]))
-  ctx.body = res[0].data
-})
-
+/**
+ * 初始化数据库连接池
+ */
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '34.67.89.63',
@@ -71,6 +38,76 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+
+/**
+ * 数据接口，从redis获取全世界的数据，
+ * 如果redis数据为空，则从数据库里面获取。
+ */
+router.get("/world",async(ctx,next)=>{
+  const redisRes = await getAsync("World")
+  console.log(JSON.parse(redisRes));
+  if(!redisRes ){
+    const res = await datastore.get(datastore.key(["covid19ApiCache", "World"]))
+    ctx.body = res[0].data
+  }else{
+    ctx.body = JSON.parse(redisRes).data
+  }
+})
+
+/**
+ * 数据接口，获取美国的数据。直接从数据库里面取，不走redis
+ */
+router.get("/america",async(ctx,next)=>{
+  const redisRes = await getAsync("America")
+  console.log(redisRes);
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "America"]))
+  ctx.body = res[0].data
+})
+
+/**
+ * 数据接口，获取中国的数据。直接从数据库里面取，不走redis
+ */
+router.get("/china",async(ctx,next)=>{
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "China"]))
+  ctx.body = res[0].data
+})
+
+/**
+ * 数据接口，获取澳大利亚的数据。直接从数据库里面取，不走redis
+ */
+router.get("/australia_confirmed",async(ctx,next)=>{
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaConfirmed"]))
+  ctx.body = res[0].data
+})
+
+/**
+ * 数据接口，获取澳大利亚的数据。直接从数据库里面取，不走redis
+ */
+router.get("/australia_deaths",async(ctx,next)=>{
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaDeaths"]))
+  ctx.body = res[0].data
+})
+
+/**
+ * 数据接口，获取澳大利亚的数据。直接从数据库里面取，不走redis
+ */
+router.get("/australia_tested",async(ctx,next)=>{
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaTested"]))
+  ctx.body = res[0].data
+})
+
+/**
+ * 数据接口，获取澳大利亚的数据。直接从数据库里面取，不走redis
+ */
+router.get("/australia_recovered",async(ctx,next)=>{
+  const res = await datastore.get(datastore.key(["covid19ApiCache", "AustraliaRecovered"]))
+  ctx.body = res[0].data
+})
+
+
+/**
+ * 登录接口，接google sign
+ */
 router.post("/tokensignin",async(ctx,next)=>{
   const res = ctx.request.body
   const now = dayjs().format("YYYY-MM-DD HH:mm:ss")
@@ -81,21 +118,8 @@ router.post("/tokensignin",async(ctx,next)=>{
       resolve()
     });
   })
-  
-  //connection.end();
   ctx.body = "ok"
 })
 
-// const apiCache = require("./cronjob.js")
-// router.post("/apicache",async(ctx,next)=>{
-//   console.log(ctx.request.body);
-  
-//   if(ctx.request.body === "apicache") {
-//     await apiCache()
-//     ctx.body = 'ok'
-//   }else{
-//     ctx.body = "not ok"
-//   }
-// })
 
 module.exports = router

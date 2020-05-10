@@ -1,9 +1,15 @@
+/**
+ * 引入第三方包，每个包的具体作用太多不详细介绍，请自行在https://www.npmjs.com 上面搜
+ */
 const {Storage} = require('@google-cloud/storage');
 const storage = new Storage();
 const fsPromise= require('fs').promises
 const fs = require('fs')
 const path = require('path')
 
+/**
+ * 上传文件
+ */
 async function uploadFile(file) {
   // Uploads a local file to the bucket
   await storage.bucket(`coivd19-bucket-1312as`).upload(file.filePath, {
@@ -23,6 +29,9 @@ async function uploadFile(file) {
   console.log(`${file.filePath} uploaded to ${"coivd19-bucket-1312as"}.`);
 }
 
+/**
+ * 寻找需要上传文件的路径
+ */
 async function findAllFilePath(nowPath) {
   const filePaths = fs.readdirSync(nowPath)
   let ret = []
@@ -43,6 +52,9 @@ async function findAllFilePath(nowPath) {
   return ret
 }
 
+/**
+ * 入口函数，从这里调用上述两个函数
+ */
 async function uploadAllFile() {
   const files = await findAllFilePath('./dist')
   await Promise.all(files.map(async file=>{
@@ -51,4 +63,6 @@ async function uploadAllFile() {
 
 }
 
+
+// 默认执行入口函数
 uploadAllFile();

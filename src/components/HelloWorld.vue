@@ -18,11 +18,13 @@
     <canvas ref="australia1" width="800" height="400"></canvas>
     <canvas ref="australia2" width="800" height="400"></canvas>
     <canvas ref="australia3" width="800" height="400"></canvas>
-    <!-- <b-table :data="data" :columns="columns"></b-table> -->
   </div>
 </template>
 
 <script>
+/**
+ * 引入第三方包，每个包的具体作用太多不详细介绍，请自行在https://www.npmjs.com 上面搜
+ */
 import Chart from "chart.js"
 import axios from "axios"
 import dayjs from "dayjs"
@@ -32,8 +34,13 @@ export default {
   props: {
     msg: String
   },
+  /**
+   * 生命周期函数，页面加载完成后，自动执行这个函数
+   */
   async mounted() {
+    // 向后端服务器请求全世界的数据
     const res = await axios.get("/world")
+    // 拿到数据后画表格
     new Chart(this.$refs.barChart, {
         type: 'bar',
         data: {
@@ -45,7 +52,9 @@ export default {
             }]
         },
     });    
+    // 向后端服务器请求美国的数据
     const res2 = await axios.get("america")
+    // 拿到数据后画表格
     const data2 = res2.data.filter(v=>v.casesByDays)
     new Chart(this.$refs.lineChart, {
       type: 'line',
@@ -58,7 +67,9 @@ export default {
         }]
       }
     });
+    // 向后端服务器请求中国的数据
     const res3 = await axios.get("china")
+    // 拿到数据后画表格
     new Chart(this.$refs.barChart2, {
       type: 'horizontalBar',
       data: {
@@ -75,10 +86,12 @@ export default {
         }]
       }
     });
+    // 向后端服务器请求澳大利亚的数据
     const res4_confirmed = await axios.get("australia_confirmed")
     const res4_deaths = await axios.get("australia_deaths")
     const res4_tested = await axios.get("australia_tested")
     const res4_recovered = await axios.get("australia_recovered")
+    // 画表格
     new Chart(this.$refs.australia1, {
       type: 'line',
       data: {
@@ -90,6 +103,7 @@ export default {
         }]
       }
     });
+    // 画表格
     new Chart(this.$refs.australia2, {
       type: 'line',
       data: {
@@ -101,6 +115,7 @@ export default {
         }]
       }
     });
+    // 画表格
     new Chart(this.$refs.australia3, {
       type: 'line',
       data: {
