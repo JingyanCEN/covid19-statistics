@@ -14,7 +14,7 @@
     "@google-cloud/storage": "^4.7.0",
     "axios": "^0.19.2",
     "buefy": "^0.8.17",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.4",
     "cron": "^1.8.2",
     "dayjs": "^1.8.25",
